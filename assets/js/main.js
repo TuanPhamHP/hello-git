@@ -163,5 +163,4 @@ listProductViewIcons.forEach(item => {
         showModal();
     })
 })
-
-
+// UI lib
