@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/system.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Liên hệ</h1>
+
+        <form id="formContainer" class="form-container">
+            <div class="form-input-block">
+                <label for="fullname" class="d-block input-label">Tên của bạn</label>
+                <input id="fullname" class="input-block d-block" type="text" placeholder="Nhập họ và tên">
+            </div>
+            <div class="form-input-block">
+                <label for="phone" class="d-block input-label">Số điện thoại liên hệ</label>
+                <input id="phone" class="input-block d-block" type="text" placeholder="Nhập số điện thoại">
+            </div>
+            <div class="form-input-block">
+                <label for="email" class="d-block input-label">Email</label>
+                <input id="email" class="input-block d-block" type="text" placeholder="Nhập Email">
+            </div>
+            <div class="form-input-block">
+                <label for="comments" class="d-block input-label">Ý kiến của bạn</label>
+                <textarea class="comment-block d-block" name="" id="comments"
+                    placeholder="Gửi ý kiến của bạn"></textarea>
+            </div>
+            <div>
+                <button class="btn-submit">Gửi</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="my-custom-chat-plugin">
+        <div class="chat-header">
+            <p class="partner-name">Người lạ ơiiii</p>
+        </div>
+        <div id="chatBody-01" class="chat-body">
+
+
+        </div>
+        <div class="typing-block">
+            <form id="formMsg" class="d-flex items-center px-3 msg-form">
+                <textarea id="my-msg" placeholder="Nhập tin nhắn ..."></textarea>
+                <button class="btn-submit-msg">Gửi</button>
+            </form>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    const formContainer = document.querySelector('#formContainer');
+    const fullname = document.querySelector('#fullname');
+    const phone = document.querySelector('#phone');
+    const email = document.querySelector('#email');
+    const comments = document.querySelector('#comments');
+    formContainer.addEventListener('submit', function (event) {
+        event.preventDefault();
+        // tạo một mảng để lưu các trường có lỗi. Init data là mảng rỗng
+        const listFailed = [];
+
+        // khi phát sinh lỗi bất kì thì đẩy 1 item vào mảng trên.
+        if (!fullname.value.trim()) {
+            // fullname.classList.add('error-border')
+            listFailed.push('#fullname')
+        }
+        if (!email.value.trim()) {
+            // fullname.classList.add('error-border')
+            listFailed.push('#email')
+        }
+        if (!phone.value.trim() || phone.value.trim().length < 9) {
+            // phone.classList.add('error-border')
+            listFailed.push('#phone')
+        }
+        if (!comments.value.trim() || comments.value.trim().length < 50 || comments.value.trim().length > 200) {
+            // comments.classList.add('error-border')
+            listFailed.push('#comments')
+        }
+
+        // Kiểm tra: nếu mảng có phần tử thì => failed.
+        if (listFailed.length) {
+            alert('Vui lòng điền đủ thông tin trước khi tiếp tục');
+            listFailed.forEach(query => {
+                document.querySelector(query).classList.add('error-border')
+            })
+            return
+        }
+
+        alert('Gửi ý kiến thành công, cảm ơn bạn');
+    })
+
+    // rules:
+    // Tên: không được để trống (không tính space)
+    // SĐT: không được để trống, có ít nhất 9 kí tự (không tính space)
+    // Ý kiến: không được để trống (không tính space), có ít nhất 50 kí tự, tối đa 200 kí tự
+    // -> passed: thông báo "Gửi ý kiến thành công, cảm ơn bạn"
+    // -> failed: thông báo "Vui lòng điền đủ thông tin trước khi tiếp tục"
+    // trong trường hợp failed thì tô đỏ toàn bộ border của các ô failed để báo cho người dùng
+
+
+    // lấy giá trị người dùng nhập từ input:
+    console.log(fullname.value);
+
+    const chatBody1 = document.querySelector('#chatBody-01')
+    const listRoomMsg = [
+        {
+            id: 1,
+            isMe: false,
+            content: 'Đi chơi không bạn ơi.'
+        },
+        {
+            id: 2,
+            isMe: true,
+            content: 'Đi chứ'
+        },
+        {
+            id: 3,
+            isMe: false,
+            content: '8h nhé? Quán cũ'
+        },
+        {
+            id: 4,
+            isMe: true,
+            content: 'Giờ đấy tao còn bị mẹ đánh. đi giờ khác đê'
+        }
+    ]
+    function renderMsgFromData(msgData) {
+        return `<div class="msg ${msgData.isMe ? 'my-msg' : 'partner-msg'}">
+               ${msgData.content}
+            </div>`
+    }
+
+    function renderListData() {
+        let str = '';
+        listRoomMsg.forEach(item => {
+            str += renderMsgFromData(item);
+        });
+        chatBody1.innerHTML = str;
+    }
+    renderListData();
+
+    const formMsg = document.querySelector('#formMsg');
+    const myText = document.querySelector('#my-msg');
+    formMsg.addEventListener('submit', (e) => {
+        // bỏ qua việc reload khi submit của form
+        e.preventDefault();
+        // kiểm tra tin nhắn có hợp lệ hay không.
+        if (myText.value.trim()) {
+            const msg = myText.value
+            myText.value = ''
+            const objMsg = {
+                id: new Date().getTime(),
+                isMe: true,
+                content: msg
+            }
+
+            listRoomMsg.push(objMsg);
+            if (msg === '/thời gian') { 
+                const botObj = {
+                    id: new Date().getTime(),
+                    isMe: false,
+                    content: `Bây giờ là: ${new Date().getHours()}:${new Date().getMinutes()} `
+                }
+                listRoomMsg.push(botObj);
+            }
+
+            renderListData();
+
+        }
+    })
+
+  
+</script>
+
+</html>

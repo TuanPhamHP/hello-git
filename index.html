@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/css/system.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="d-flex ">
+    <nav id="sidebar" class="sidebar mini-sizebar">
+      <div class="text-center mb-3">
+        <img class="brand-logo"
+          src="https://tuanphamhp.github.io/bai-tap/assets/images/coffee-logo-design-creative-idea-logo-elements-2.png"
+          alt="">
+        <p class="brand-name">Coffee Lovers
+        </p>
+      </div>
+
+      <ul class="list-navigator">
+        <li class="nav-group-name">
+          <p>ADMIN</p>
+        </li>
+        <li class="nav-link nav-active">
+          <img class="nav-image" src="./assets/images/store-solid.svg" alt="">
+          <p class="nav-display-name">Trang chủ</p>
+        </li>
+        <li class="nav-link">
+          <img class="nav-image" src="./assets/images/store-solid.svg" alt="">
+          <p class="nav-display-name">Đơn hàng</p>
+        </li>
+        <li class="nav-link">
+          <img class="nav-image" src="./assets/images/store-solid.svg" alt="">
+          <p class="nav-display-name">Thống kê</p>
+        </li>
+        <li class="nav-group-name">
+          <p>SUPPORT</p>
+        </li>
+        <li class="nav-link">
+          <img class="nav-image" src="./assets/images/store-solid.svg" alt="">
+          <p class="nav-display-name">Thông báo</p>
+        </li>
+        <li class="nav-link">
+          <img class="nav-image" src="./assets/images/store-solid.svg" alt="">
+          <p class="nav-display-name">Khiếu nại</p>
+        </li>
+        <li class="nav-link">
+          <img class="nav-image" src="./assets/images/store-solid.svg" alt="">
+          <p class="nav-display-name">Liên hệ</p>
+        </li>
+      </ul>
+
+    </nav>
+    <main class="main px-3">
+
+      <button id="btnToggleSidebar">Click me to toggle Sidebar</button>
+     
+      <div class="container" >
+        <h1>Danh sách sản phẩm</h1>
+        <div class="row" id="myTarget">
+         
+      </div>
+    </main>
+  </div>
+
+  <div class="modal modal-hidden" id="fullSizeImgModal">
+    <div class="modal-inner">
+      <div class="modal-body">
+        <img src="https://images6.alphacoders.com/338/338168.jpg" alt="" class="full-size-img" id="fullSizeImg">
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script src="./assets/js/main.js"></script>
+
+</html>
